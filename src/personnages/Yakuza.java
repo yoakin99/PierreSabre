@@ -1,5 +1,7 @@
 package personnages;
 
+import java.util.Arrays;
+
 public class Yakuza extends Humain {
 	private int reputation=0;
 	String clan;
@@ -36,7 +38,9 @@ public class Yakuza extends Humain {
 	}
 	
 	public static void main (String[] args) {
-
+		int[] hello = new int[2];
+		hello[1]=5;
+		System.out.println(Arrays.toString(hello));
 	}
 
 }
