@@ -37,10 +37,15 @@ public class Yakuza extends Humain {
 		parler("Je l'ai dépouillé de ses "+gain+" sous.");
 	}
 	
+	@Override
+	public void direBonjour() {
+		super.direBonjour();
+		parler("Mon clan est celui de : "+clan);
+	}
+	
 	public static void main (String[] args) {
-		int[] hello = new int[2];
-		hello[1]=5;
-		System.out.println(Arrays.toString(hello));
+		Yakuza yoakin = new Yakuza ("yoki","coke",22,"Wakanda");
+		yoakin.direBonjour();
 	}
 
 }

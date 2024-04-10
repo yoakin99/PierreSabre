@@ -1,9 +1,13 @@
 package personnages;
 
+import java.util.Iterator;
+
 public class Humain {
 	protected String nom;
 	protected String boissonfav;
 	protected int argent;
+	protected int nbConnaissance=0;
+	protected Humain[] memoire = new Humain[30];
 	
 	public Humain(String nom,String boissonfav,int argent) {
 		this.nom=nom;
@@ -48,12 +52,59 @@ public class Humain {
 		argent=++gain;
 	}
 	
+	public void repondre(Humain humain) {
+		direBonjour();
+		memoriser(humain);
+	}
+	
+	public void memoriser (Humain humain) {
+		if (nbConnaissance<memoire.length) {
+			memoire[nbConnaissance]=humain;
+		} else {
+			for (int i = 0; i<memoire.length-1;i++) {
+				memoire[i]=memoire[i+1];
+			}
+		}
+		if (memoire.length-1<=nbConnaissance) {
+			memoire[memoire.length-1]=humain;
+		}
+			nbConnaissance++;
+		
+	}
+	
+	public void faireConnaissanceAvec(Humain humain) {
+		direBonjour();
+		humain.repondre(this);
+		memoriser(humain);
+	}
+	
+	public void listerConnaissance() {
+		String x = "Je connais beaucoup de monde dont : " + memoire[0].getNom();
+	//	System.out.println(memoire.length);
+		for (int i = 1; i<nbConnaissance && i<memoire.length;i++) {
+			x+=", ";
+			x+=(memoire[i].getNom());	
+		}
+		
+		parler(x);
+	}
+	
 	public static void main(String[] args) {
 		Humain prof = new Humain ("prof","kombuacha",54);
+		Humain prof1 = new Humain ("prof1","kombuacha1",54);
+		Humain prof2 = new Humain ("prof2","kombuacha1",54);
+		Humain prof3 = new Humain ("prof3","kombuacha1",54);
+
+		Humain prof4 = new Humain ("prof4","kombuacha1",54);
 		prof.acheter("une boisson" , 12);
 		prof.boire("kombuacha");
 		prof.acheter("un jeu" , 2);
-
+		
+		prof.faireConnaissanceAvec(prof1);
+		prof.faireConnaissanceAvec(prof2);
+		prof.faireConnaissanceAvec(prof3);
+		prof.faireConnaissanceAvec(prof4);
+		prof.listerConnaissance();
 		
 	}
 }
